@@ -1,1 +1,3 @@
-pub
+pub enum TokenKind {
+    
+}
