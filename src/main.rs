@@ -3,9 +3,9 @@ use std::io::{self, Read};
 
 fn main() {
     // Replace "your_file.txt" with the actual file path
-    let file_path = "your_file.txt";
+    let path: &str = "lang.thai";
 
-    match read_file(file_path) {
+    match read_file(path) {
         Ok(content) => {
             println!("File content:\n{}", content);
         }
@@ -16,8 +16,8 @@ fn main() {
 }
 
 fn read_file(file_path: &str) -> io::Result<String> {
-    let mut file = File::open(file_path)?;
-    let mut content = String::new();
+    let mut file: File = File::open(file_path)?;
+    let mut content: String = String::new();
     
     file.read_to_string(&mut content)?;
 
