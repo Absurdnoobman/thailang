@@ -25,12 +25,11 @@
 
 %left +
 %left *
-%left ^
 
 %%
 
 Programe:
-    โปรแกรม IdentifierName ; StatementList
+    "โปรแกรม" IdentifierName ; StatementList
 
 StatementList:
     Statement
@@ -54,8 +53,14 @@ FuncCodeBlock:
     { MultipleExpression ReturnExpression}
     | { Expression ReturnExpression }
 
+Expression:
+    PrimaryExpression
+    | BooleanExpression
+    | AddSubtrExpression
+    | MultiplyDivisionExpression
+
 ReturnExpression:
-    คืนค่า BooleanExpression
+    "คืนค่า" Expression
 
 IdentifierName:
     StringLiteral
