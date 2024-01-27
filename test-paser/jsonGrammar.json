@@ -1,5 +1,51 @@
 {
     "lex" : {
-        "rule" : []
+        "rules" : [
+            ["\\/\\/.*", ""], // comment
+            ["\/\\*[\\s\\S]*?\\*\/", ""], // multiline comment
+            ["\\s+", ""], // whitespace
+
+            [";", " return ';' "],
+            ["{", " return '{' "],
+            ["}", " return '}' "],
+
+            ["-", " return '-' "],
+            ["+", " return '+' "],
+            ["*", " return '*' "],
+            ["(", " return '(' "],
+            [")", " return ')' "],
+
+            ["ชั้น", " return 'Class' "],
+
+            ["[0-9]+|[๐-๙]+", " return 'Number' "],
+            ["[ก-\u0e3a\u0e40-\u0e4f]+", " return 'StringLiteral' "]
+        ]
+    },
+    "operators" : [
+        ["right", "-"],
+        ["left",  "+"],
+        ["left",  "*"]
+        // etc.
+    ],
+    "moduleInclude" : "",
+    "bnf" : {
+        "Name" : [
+            ["StringLiteral"]
+        ],
+        "ExpressionList" : [
+            ["Expression"],
+            ["ExpressionList Expression"]
+        ],
+        "Expression" : [
+            ["FunctionDeclaration"],
+            ["ClassDeclaration"]
+        ],
+        "ClassDeclaration" : [
+            ["Class Name Codeblock"]
+        ],
+        "Codeblock" : [
+            ["{ ExpressionList }"]
+        ]
     }
+    
 }
