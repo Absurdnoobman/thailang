@@ -1,4 +1,10 @@
+/**
+ * sfsfe
+ */
+
 %lex
+
+%%
 
 \s+     return "";
 [0-9]+|[๐-๙]+     return "Number";
@@ -18,49 +24,47 @@
 "("     return "(";
 ")"     return ")";
 
-"โปรแกรม" return "programe";
-"คืนค่า"  return "Return";
+// "โปรแกรม" return "program";
+// "คืนค่า"  return "Return";
 
 /lex
 
 %left +
 %left *
+%right ^
 
 %%
 
-Programe:
-    "โปรแกรม" IdentifierName ; StatementList
-
-StatementList:
-    Statement
+StatementList 
+    : Statement
     | StatementList Statement
 
-Statement:
-    FunctionDeclaration
+Statement
+    : FunctionDeclaration
     | ClassDeclaration
 
-FunctionDeclaration:
-    ReturnType IdentifierName ( ParametersList ) FuncCodeBlock
+FunctionDeclaration
+    : ReturnType IdentifierName ( ParametersList ) FuncCodeBlock
 
-Parameter:
-    Type IdentifierName
+Parameter 
+    : Type IdentifierName
 
-ParametersList:
-    Parameter
+ParametersList
+    : Parameter
     | ParametersList , Parameter
 
-FuncCodeBlock:
-    { MultipleExpression ReturnExpression}
+FuncCodeBlock 
+    : { MultipleExpression ReturnExpression}
     | { Expression ReturnExpression }
 
-Expression:
-    PrimaryExpression
+Expression 
+    : PrimaryExpression
     | BooleanExpression
-    | AddSubtrExpression
+    | AddSubtrExpression 
     | MultiplyDivisionExpression
 
-ReturnExpression:
-    "คืนค่า" Expression
+ReturnExpression
+    : "คืนค่า" Expression
 
-IdentifierName:
-    StringLiteral
+IdentifierName
+    : StringLiteral
